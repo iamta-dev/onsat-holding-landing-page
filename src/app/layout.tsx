@@ -1,42 +1,12 @@
-import type { Metadata } from 'next';
-import { Prompt, Itim } from 'next/font/google';
+import type { Metadata } from "next";
 import "~/styles/globals.css";
 
-// Font configuration
-const prompt = Prompt({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['thai', 'latin'],
-  display: 'swap',
-  variable: '--font-prompt',
-});
-
-const itim = Itim({
-  weight: ['400'],
-  subsets: ['thai', 'latin'],
-  display: 'swap',
-  variable: '--font-itim',
-});
-
-// Metadata configuration
 export const metadata: Metadata = {
-  title: 'ONSAT - ระบบชำระเงินออนไลน์ที่คุณไว้วางใจ',
-  description: 'ระบบรับเงินโดเนทอัจฉริยะ ที่สตรีมเมอร์ไว้วางใจ พร้อมระบบแจ้งเตือนอัตโนมัติ และรายงานสรุปที่ดูง่าย',
-  keywords: 'payment gateway, donation, streamer, online payment, Thailand',
-  authors: [{ name: 'ONSAT' }],
-  creator: 'ONSAT',
-  publisher: 'ONSAT',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  title: "Onsat Holding | สร้างความสำเร็จทางธุรกิจไปด้วยกัน",
+  description:
+    "บริษัทที่ปรึกษาธุรกิจครบวงจร พร้อมให้คำปรึกษาและสนับสนุนการเติบโตของธุรกิจคุณ ด้วยประสบการณ์กว่า 10 ปี",
   icons: {
-    icon: '/favicon.ico',
-  },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
+    icon: "/favicon.ico",
   },
 };
 
@@ -46,29 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html 
-      lang="th" 
-      className={`${prompt.variable} ${itim.variable}`}
-      suppressHydrationWarning
-    >
-      <body className={`
-        min-h-screen
-        font-[Prompt]
-        antialiased
-        bg-white
-        text-gray-900
-        selection:bg-[#40BFB4]/30
-        `}
-      >
-        {children}
-        
-        {/* Analytics Script (เพิ่มในอนาคต) */}
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            {/* Google Analytics หรือ Script อื่นๆ */}
-          </>
-        )}
-      </body>
+    <html lang="th" className="scroll-smooth">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }

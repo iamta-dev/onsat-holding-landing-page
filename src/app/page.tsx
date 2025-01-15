@@ -1,215 +1,358 @@
-import React from "react";
-import { Menu, X, Check, ChevronRight } from "lucide-react";
+"use client";
 
-// Components would be imported from their respective files
-const Header = () => (
-  <header className="bg-white/90 border-gray-100 fixed left-0 right-0 top-0 z-50 border-b backdrop-blur-sm">
-    <nav className="container mx-auto flex items-center justify-between px-4 py-3">
-      <div className="flex items-center gap-2">
-        <img src="/logo.png" alt="Onsat Logo" className="h-10 w-10" />
-        <span className="text-2xl font-bold text-[#40BFB4]">ONSAT</span>
-      </div>
-      <div className="hidden items-center gap-8 md:flex">
-        <a href="#features" className="text-gray-600 hover:text-[#40BFB4]">
-          ฟีเจอร์
-        </a>
-        <a href="#pricing" className="text-gray-600 hover:text-[#40BFB4]">
-          ราคา
-        </a>
-        <a href="#faq" className="text-gray-600 hover:text-[#40BFB4]">
-          คำถามที่พบบ่อย
-        </a>
-        <button className="text-white rounded-full bg-[#40BFB4] px-6 py-2 transition hover:bg-[#3aa89e]">
-          เริ่มต้นใช้งาน
-        </button>
-      </div>
-      <button className="md:hidden">
-        <Menu className="text-gray-600 h-6 w-6" />
-      </button>
-    </nav>
-  </header>
-);
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { FaBriefcase, FaChartLine, FaHandshake } from "react-icons/fa";
 
-const Hero = () => (
-  <section className="px-4 pb-16 pt-24">
-    <div className="container mx-auto">
-      <div className="text-center">
-        <h1 className="mb-6 font-[Itim] text-4xl font-bold md:text-5xl">
-          ระบบรับเงินโดเนทอัจฉริยะ
-          <br />
-          ที่สตรีมเมอร์ไว้วางใจ
-        </h1>
-        <p className="text-gray-600 mb-8 font-[Prompt] text-lg">
-          รับเงินโดเนทแบบเรียลไทม์ พร้อมระบบแจ้งเตือนอัตโนมัติ
-          และรายงานสรุปที่ดูง่าย ไม่พลาดทุกการสนับสนุน
-        </p>
-        <div className="flex flex-col justify-center gap-4 sm:flex-row">
-          <button className="text-white rounded-full bg-[#40BFB4] px-8 py-3 font-semibold transition hover:bg-[#3aa89e]">
-            ทดลองใช้ฟรี 30 วัน
-          </button>
-          <button className="hover:text-white rounded-full border border-[#40BFB4] px-8 py-3 font-semibold text-[#40BFB4] transition hover:bg-[#40BFB4]">
-            ดูแพ็กเกจทั้งหมด
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-);
+export default function Home() {
+  const [isScrolled, setIsScrolled] = useState(false);
 
-const Features = () => {
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const features = [
     {
-      title: "ครบทุกช่องทางการชำระเงิน",
+      icon: <FaBriefcase className="h-8 w-8" />,
+      title: "ที่ปรึกษาธุรกิจมืออาชีพ",
       description:
-        "รองรับการชำระเงินผ่านบัตรเครดิต QR Code และ e-Wallet ชั้นนำทุกค่าย",
-      icon: <Check className="h-6 w-6" />,
+        "วิเคราะห์และวางแผนธุรกิจโดยผู้เชี่ยวชาญ พร้อมให้คำแนะนำที่เหมาะสมกับธุรกิจของคุณ",
     },
     {
-      title: "ระบบอัตโนมัติ 100%",
+      icon: <FaChartLine className="h-8 w-8" />,
+      title: "บริการด้านการเงินและการลงทุน",
       description:
-        "ระบบทำงานอัตโนมัติตลอด 24 ชั่วโมง พร้อมแจ้งเตือนทันทีที่มีการโดเนท",
-      icon: <Check className="h-6 w-6" />,
+        "วางแผนการเงินและการลงทุนอย่างชาญฉลาด เพื่อการเติบโตที่ยั่งยืนของธุรกิจ",
     },
     {
-      title: "API พร้อมใช้งาน",
+      icon: <FaHandshake className="h-8 w-8" />,
+      title: "พัฒนาระบบและเทคโนโลยี",
       description:
-        "เชื่อมต่อกับระบบของคุณได้ง่ายๆ ด้วย API ที่เข้าใจง่ายและมีเอกสารประกอบครบถ้วน",
-      icon: <Check className="h-6 w-6" />,
+        "ยกระดับธุรกิจด้วยเทคโนโลยีที่ทันสมัย เพิ่มประสิทธิภาพการทำงานและการบริการ",
     },
   ];
 
-  return (
-    <section id="features" className="bg-gray-50 py-16">
-      <div className="container mx-auto px-4">
-        <h2 className="mb-12 text-center font-[Itim] text-3xl font-bold md:text-4xl">
-          ฟีเจอร์ครบครัน ที่สตรีมเมอร์ต้องการ
-        </h2>
-        <div className="grid gap-8 md:grid-cols-3">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl p-6 shadow-sm transition hover:shadow-md"
-            >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#40BFB4]/10">
-                <div className="text-[#40BFB4]">{feature.icon}</div>
-              </div>
-              <h3 className="mb-3 text-xl font-semibold">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const FAQ = () => {
-  const faqs = [
-    {
-      question: "ระบบมีความปลอดภัยอย่างไร?",
-      answer:
-        "เราใช้เทคโนโลยีการเข้ารหัสระดับสูง และได้รับการรับรองมาตรฐานความปลอดภัยสากล",
-    },
-    {
-      question: "ใช้เวลานานแค่ไหนในการรับเงิน?",
-      answer: "เงินจะเข้าบัญชีของคุณทันทีที่มีการโดเนท และสามารถถอนได้ทุกวัน",
-    },
-    {
-      question: "มีค่าธรรมเนียมเท่าไหร่?",
-      answer:
-        "ค่าธรรมเนียมเริ่มต้นที่ 2.5% ต่อรายการ ขึ้นอยู่กับแพ็กเกจที่เลือกใช้",
-    },
-  ];
-
-  return (
-    <section id="faq" className="py-16">
-      <div className="container mx-auto px-4">
-        <h2 className="mb-12 text-center font-[Itim] text-3xl font-bold md:text-4xl">
-          คำถามที่พบบ่อย
-        </h2>
-        <div className="mx-auto max-w-2xl">
-          {faqs.map((faq, index) => (
-            <div key={index} className="mb-6">
-              <h3 className="mb-2 text-xl font-semibold">{faq.question}</h3>
-              <p className="text-gray-600">{faq.answer}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const Footer = () => (
-  <footer className="bg-gray-900 text-white py-12">
-    <div className="container mx-auto px-4">
-      <div className="grid gap-8 md:grid-cols-4">
-        <div>
-          <div className="mb-4 flex items-center gap-2">
-            <img src="/logo.png" alt="Onsat Logo" className="h-10 w-10" />
-            <span className="text-2xl font-bold">ONSAT</span>
-          </div>
-          <p className="text-gray-400">ระบบชำระเงินออนไลน์ที่คุณไว้วางใจ</p>
-        </div>
-        <div>
-          <h4 className="mb-4 font-semibold">ติดต่อเรา</h4>
-          <p className="text-gray-400 text-sm">
-            เลขที่ 25 อาคารอัลม่าลิงค์ ชั้น 17 ห้อง 351
-            <br />
-            ซอยชิดลม ถนนเพลินจิต แขวงลุมพินี
-            <br />
-            เขตปทุมวัน กรุงเทพฯ 10330
-          </p>
-        </div>
-        <div>
-          <h4 className="mb-4 font-semibold">ลิงก์ด่วน</h4>
-          <ul className="space-y-2">
-            <li>
-              <a href="#features" className="text-gray-400 hover:text-white">
-                ฟีเจอร์
-              </a>
-            </li>
-            <li>
-              <a href="#pricing" className="text-gray-400 hover:text-white">
-                ราคา
-              </a>
-            </li>
-            <li>
-              <a href="#faq" className="text-gray-400 hover:text-white">
-                คำถามที่พบบ่อย
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="mb-4 font-semibold">ติดตามเรา</h4>
-          <div className="flex gap-4">
-            <a href="#" className="text-gray-400 hover:text-white">
-              Facebook
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white">
-              Twitter
-            </a>
-          </div>
-        </div>
-      </div>
-      <div className="border-gray-800 text-gray-400 mt-8 border-t pt-8 text-center">
-        <p>&copy; 2025 Onsat. All rights reserved.</p>
-      </div>
-    </div>
-  </footer>
-);
-
-const Page = () => {
   return (
     <main className="min-h-screen">
-      <Header />
-      <Hero />
-      <Features />
-      <FAQ />
-      <Footer />
+      {/* Navbar */}
+      <nav
+        className={`fixed z-50 w-full transition-all duration-300 ${
+          isScrolled ? "bg-white shadow-md" : "bg-transparent"
+        }`}
+      >
+        <div className="container mx-auto flex h-20 items-center justify-between px-4">
+          <div className="flex items-center space-x-8">
+            <img src="/logo.png" alt="Onsat Holding" className="h-12" />
+            <div className="hidden space-x-6 md:flex">
+              <a
+                href="#services"
+                className="text-secondary transition-colors hover:text-primary"
+              >
+                บริการ
+              </a>
+              <a
+                href="#about"
+                className="text-secondary transition-colors hover:text-primary"
+              >
+                เกี่ยวกับเรา
+              </a>
+              <a
+                href="#contact"
+                className="text-secondary transition-colors hover:text-primary"
+              >
+                ติดต่อ
+              </a>
+            </div>
+          </div>
+          <button className="rounded-lg bg-primary px-6 py-2 text-white transition-colors hover:bg-primary/90">
+            ปรึกษาฟรี
+          </button>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-white to-gray-50 pb-20 pt-32">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="grid items-center gap-12 md:grid-cols-2"
+          >
+            <div>
+              <h1 className="mb-6 font-heading text-4xl font-bold text-secondary md:text-5xl">
+                เติบโตอย่างมั่นคง ก้าวไกลไปด้วยกัน
+              </h1>
+              <p className="mb-8 text-lg text-text-secondary">
+                เรามุ่งมั่นสร้างความสำเร็จร่วมกับพาร์ทเนอร์
+                ด้วยประสบการณ์และความเชี่ยวชาญกว่า 10 ปี
+              </p>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <button className="rounded-lg bg-primary px-8 py-3 text-white transition-colors hover:bg-primary/90">
+                  ปรึกษาธุรกิจฟรี
+                </button>
+                <button className="rounded-lg border border-secondary px-8 py-3 text-secondary transition-colors hover:bg-gray-50">
+                  ดูบริการทั้งหมด
+                </button>
+              </div>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="hidden md:block"
+            >
+              <img
+                src="/Business Growth.png"
+                alt="Business Growth"
+                className="w-full bg-transparent"
+              />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="bg-white py-20" id="services">
+        <div className="container mx-auto px-4">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 text-center font-heading text-3xl font-bold text-secondary md:text-4xl"
+          >
+            บริการครบวงจรเพื่อความสำเร็จของธุรกิจคุณ
+          </motion.h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="rounded-xl bg-white p-6 shadow-lg transition-shadow hover:shadow-xl"
+              >
+                <div className="mb-4 text-primary">{feature.icon}</div>
+                <h3 className="mb-3 font-heading text-xl font-bold text-secondary">
+                  {feature.title}
+                </h3>
+                <p className="text-text-secondary">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="bg-gray-50 py-20" id="about">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto max-w-3xl text-center"
+          >
+            <h2 className="mb-6 font-heading text-3xl font-bold text-secondary md:text-4xl">
+              เกี่ยวกับเรา
+            </h2>
+            <p className="mb-8 text-text-secondary">
+              Onsat Holding เป็นบริษัทที่ปรึกษาธุรกิจชั้นนำ
+              ที่มุ่งมั่นสร้างความสำเร็จให้กับพาร์ทเนอร์ของเรา
+              ด้วยทีมงานผู้เชี่ยวชาญที่พร้อมให้คำปรึกษาและสนับสนุนการเติบโตของธุรกิจคุณ
+            </p>
+            <address className="not-italic text-text-secondary">
+              82/655 หมู่ 20 ต.บางพลีใหญ่ อ.บางพลี
+              <br />
+              จ.สมุทรปราการ 10540
+            </address>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="bg-white py-20" id="contact">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto max-w-2xl"
+          >
+            <h2 className="mb-12 text-center font-heading text-3xl font-bold text-secondary md:text-4xl">
+              ติดต่อเรา
+            </h2>
+            <form className="space-y-6">
+              <div className="grid gap-6 md:grid-cols-2">
+                <input
+                  type="text"
+                  placeholder="ชื่อ"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                />
+                <input
+                  type="email"
+                  placeholder="อีเมล"
+                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+                />
+              </div>
+              <input
+                type="text"
+                placeholder="เบอร์โทรศัพท์"
+                className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              />
+              <textarea
+                placeholder="ข้อความ"
+                rows={4}
+                className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              />
+              <button className="w-full rounded-lg bg-primary px-8 py-3 text-white transition-colors hover:bg-primary/90">
+                ส่งข้อความ
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-secondary py-12 text-white">
+        <div className="container mx-auto px-4">
+          <div className="grid gap-8 md:grid-cols-4">
+            <div>
+              <img
+                src="/logo.png"
+                alt="Onsat Holding"
+                className="mb-4 h-12"
+              />
+              <p className="text-gray-300">สร้างความสำเร็จทางธุรกิจไปด้วยกัน</p>
+            </div>
+            <div>
+              <h4 className="mb-4 font-heading text-lg font-bold">
+                บริการของเรา
+              </h4>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-300 transition-colors hover:text-white"
+                  >
+                    ที่ปรึกษาธุรกิจ
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-300 transition-colors hover:text-white"
+                  >
+                    บริการด้านการเงิน
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-300 transition-colors hover:text-white"
+                  >
+                    พัฒนาระบบ
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="mb-4 font-heading text-lg font-bold">ติดต่อเรา</h4>
+              <ul className="space-y-2">
+                <li className="text-gray-300">
+                  82/655 หมู่ 20 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540
+                </li>
+                <li>
+                  <a
+                    href="tel:+66123456789"
+                    className="text-gray-300 transition-colors hover:text-white"
+                  >
+                    โทร: 012-345-6789
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:contact@onsatholding.com"
+                    className="text-gray-300 transition-colors hover:text-white"
+                  >
+                    อีเมล: contact@onsatholding.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="mb-4 font-heading text-lg font-bold">ติดตามเรา</h4>
+              <form className="mb-4">
+                <label htmlFor="newsletter" className="mb-2 block text-sm">
+                  รับข่าวสารจากเรา
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    id="newsletter"
+                    placeholder="อีเมลของคุณ"
+                    className="flex-1 rounded-lg px-3 py-2 text-gray-900"
+                  />
+                  <button className="rounded-lg bg-primary px-4 py-2 text-white transition-colors hover:bg-primary/90">
+                    ติดตาม
+                  </button>
+                </div>
+              </form>
+              <div className="flex space-x-4">
+                <a
+                  href="#"
+                  className="text-gray-300 transition-colors hover:text-white"
+                >
+                  <span className="sr-only">Facebook</span>
+                  <svg
+                    className="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-300 transition-colors hover:text-white"
+                >
+                  <span className="sr-only">Line</span>
+                  <svg
+                    className="h-6 w-6"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.46 7.12c-.28 0-.5.22-.5.5v3.77c0 .28.22.5.5.5s.5-.22.5-.5v-3.77c0-.28-.22-.5-.5-.5zm-2.29 4.08c-.28 0-.5.22-.5.5s.22.5.5.5.5-.22.5-.5-.22-.5-.5-.5zm-6.09-4.08c-.28 0-.5.22-.5.5v3.77c0 .28.22.5.5.5s.5-.22.5-.5v-3.77c0-.28-.22-.5-.5-.5z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 border-t border-gray-700 pt-8 text-center text-gray-300">
+            <p>
+              &copy; {new Date().getFullYear()} Onsat Holding. All rights
+              reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
-};
-
-export default Page;
+}
