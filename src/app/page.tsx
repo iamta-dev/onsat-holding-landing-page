@@ -271,14 +271,6 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="tel:+66123456789"
-                    className="text-gray-300 transition-colors hover:text-white"
-                  >
-                    โทร: 012-345-6789
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="mailto:contact@onsatholding.com"
                     className="text-gray-300 transition-colors hover:text-white"
                   >
